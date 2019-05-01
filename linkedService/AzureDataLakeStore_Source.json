@@ -1,0 +1,13 @@
+{
+	"name": "AzureDataLakeStore_Source",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"type": "AzureDataLakeStore",
+		"typeProperties": {
+			"dataLakeStoreUri": "https://adftutorialmgw.azuredatalakestore.net/webhdfs/v1",
+			"tenant": "3b46a97a-a951-4816-aebc-0b6c46f1d4e1",
+			"subscriptionId": "27dea0bf-804f-40b5-847f-0921ba6a5f0c",
+			"resourceGroupName": "adfmw"
+		}
+	}
+}
