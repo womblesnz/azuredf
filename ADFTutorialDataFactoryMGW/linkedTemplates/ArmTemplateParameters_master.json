@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adftutorialdatafactorymgw"
+		},
+		"AzureStorageLinkedService_connectionString": {
+			"value": ""
+		},
+		"AzureBlobStorage_Staging_connectionString": {
+			"value": ""
+		},
+		"AzureDataLakeStore_Source_properties_typeProperties_dataLakeStoreUri": {
+			"value": "https://adftutorialmgw.azuredatalakestore.net/webhdfs/v1"
+		},
+		"AzureDataLakeStore_Source_properties_typeProperties_tenant": {
+			"value": "3b46a97a-a951-4816-aebc-0b6c46f1d4e1"
+		},
+		"AzureDataLakeStore_Source_properties_typeProperties_subscriptionId": {
+			"value": "27dea0bf-804f-40b5-847f-0921ba6a5f0c"
+		},
+		"AzureDataLakeStore_Source_properties_typeProperties_resourceGroupName": {
+			"value": "adfmw"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}

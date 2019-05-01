@@ -1,0 +1,84 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory Name",
+			"defaultValue": "adftutorialdatafactorymgw"
+		},
+		"AzureStorageLinkedService_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureStorageLinkedService'"
+		},
+		"AzureBlobStorage_Staging_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage_Staging'"
+		},
+		"AzureDataLakeStore_Source_properties_typeProperties_dataLakeStoreUri": {
+			"type": "string",
+			"defaultValue": "https://adftutorialmgw.azuredatalakestore.net/webhdfs/v1"
+		},
+		"AzureDataLakeStore_Source_properties_typeProperties_tenant": {
+			"type": "string",
+			"defaultValue": "3b46a97a-a951-4816-aebc-0b6c46f1d4e1"
+		},
+		"AzureDataLakeStore_Source_properties_typeProperties_subscriptionId": {
+			"type": "string",
+			"defaultValue": "27dea0bf-804f-40b5-847f-0921ba6a5f0c"
+		},
+		"AzureDataLakeStore_Source_properties_typeProperties_resourceGroupName": {
+			"type": "string",
+			"defaultValue": "adfmw"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas Token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"AzureStorageLinkedService_connectionString": {
+						"value": "[parameters('AzureStorageLinkedService_connectionString')]"
+					},
+					"AzureBlobStorage_Staging_connectionString": {
+						"value": "[parameters('AzureBlobStorage_Staging_connectionString')]"
+					},
+					"AzureDataLakeStore_Source_properties_typeProperties_dataLakeStoreUri": {
+						"value": "[parameters('AzureDataLakeStore_Source_properties_typeProperties_dataLakeStoreUri')]"
+					},
+					"AzureDataLakeStore_Source_properties_typeProperties_tenant": {
+						"value": "[parameters('AzureDataLakeStore_Source_properties_typeProperties_tenant')]"
+					},
+					"AzureDataLakeStore_Source_properties_typeProperties_subscriptionId": {
+						"value": "[parameters('AzureDataLakeStore_Source_properties_typeProperties_subscriptionId')]"
+					},
+					"AzureDataLakeStore_Source_properties_typeProperties_resourceGroupName": {
+						"value": "[parameters('AzureDataLakeStore_Source_properties_typeProperties_resourceGroupName')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
