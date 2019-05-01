@@ -1,0 +1,30 @@
+{
+	"name": "pipeline1",
+	"properties": {
+		"activities": [
+			{
+				"name": "Spark1",
+				"type": "HDInsightSpark",
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"typeProperties": {
+					"rootPath": "m03-l01-lab01/script",
+					"entryFilePath": "WordCount_Spark.py",
+					"sparkJobLinkedService": {
+						"referenceName": "AzureBlobStorage_wsplusbthsvcmgw",
+						"type": "LinkedServiceReference"
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "HDInsight_OnDemand",
+					"type": "LinkedServiceReference"
+				}
+			}
+		]
+	}
+}
