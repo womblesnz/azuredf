@@ -1,0 +1,58 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory Name",
+			"defaultValue": "adftutorialdatafactorymgw"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/HDInsight_OnDemand')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "HDInsightOnDemand",
+				"typeProperties": {
+					"clusterType": "spark",
+					"clusterSize": 4,
+					"timeToLive": "00:05:00",
+					"version": "3.6",
+					"hostSubscriptionId": "27dea0bf-804f-40b5-847f-0921ba6a5f0c",
+					"clusterResourceGroup": "adfmw",
+					"servicePrincipalId": "60e62fd9-51b4-4bdd-a2bb-00dd0e5655c5",
+					"tenant": "3b46a97a-a951-4816-aebc-0b6c46f1d4e1",
+					"clusterNamePrefix": "",
+					"clusterUserName": "adftutorialmgw_cluster",
+					"clusterPassword": {
+						"type": "SecureString",
+						"value": "**********"
+					},
+					"clusterSshPassword": {
+						"type": "SecureString",
+						"value": "**********"
+					},
+					"sparkVersion": "",
+					"servicePrincipalKey": {
+						"type": "SecureString",
+						"value": "**********"
+					},
+					"linkedServiceName": {
+						"referenceName": "AzureBlobStorage_wsplusbthsvcmgw",
+						"type": "LinkedServiceReference"
+					},
+					"headNodeSize": "",
+					"dataNodeSize": "",
+					"zookeeperNodeSize": "",
+					"subnetName": "",
+					"virtualNetworkId": ""
+				}
+			}
+		}
+	]
+}
