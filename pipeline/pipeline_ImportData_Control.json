@@ -15,7 +15,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderStoredProcedureName": "[SalesLT].[usp_GetRowCountProductStaging]"
+						"sqlReaderQuery": "SELECT COUNT(*) AS [RowCount]\n\tFROM [SalesLT].[ProductStaging]"
 					},
 					"dataset": {
 						"referenceName": "ProductsStaging",
