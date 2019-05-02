@@ -742,6 +742,104 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/ProductsCSV')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage_wsplusbthsvcmgw",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "Products.csv",
+						"folderPath": "csv",
+						"container": "m03-l01-lab02"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "ProductID",
+						"type": "String"
+					},
+					{
+						"name": "Name",
+						"type": "String"
+					},
+					{
+						"name": "ProductNumber",
+						"type": "String"
+					},
+					{
+						"name": "Color",
+						"type": "String"
+					},
+					{
+						"name": "StandardCost",
+						"type": "String"
+					},
+					{
+						"name": "ListPrice",
+						"type": "String"
+					},
+					{
+						"name": "Size",
+						"type": "String"
+					},
+					{
+						"name": "Weight",
+						"type": "String"
+					},
+					{
+						"name": "ProductCategoryID",
+						"type": "String"
+					},
+					{
+						"name": "ProductModelID",
+						"type": "String"
+					},
+					{
+						"name": "SellStartDate",
+						"type": "String"
+					},
+					{
+						"name": "SellEndDate",
+						"type": "String"
+					},
+					{
+						"name": "DiscontinuedDate",
+						"type": "String"
+					},
+					{
+						"name": "ThumbNailPhoto",
+						"type": "String"
+					},
+					{
+						"name": "ThumbnailPhotoFileName",
+						"type": "String"
+					},
+					{
+						"name": "rowguid",
+						"type": "String"
+					},
+					{
+						"name": "(No column name)",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage_wsplusbthsvcmgw')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ADLS to Blob Copy')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -1251,6 +1349,328 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage_wsplusbthsvcmgw')]",
 				"[concat(variables('factoryId'), '/linkedServices/HDInsight_OnDemand')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pipeline2')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Import CSV",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSetting"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSetting"
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"writeBatchSize": 10000
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "ProductID",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ProductID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "Name",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Name",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "ProductNumber",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ProductNumber",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Color",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Color",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "StandardCost",
+											"type": "String"
+										},
+										"sink": {
+											"name": "StandardCost",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"name": "ListPrice",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ListPrice",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"name": "Size",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Size",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Weight",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Weight",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"name": "ProductCategoryID",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ProductCategoryID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "ProductModelID",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ProductModelID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "SellStartDate",
+											"type": "String"
+										},
+										"sink": {
+											"name": "SellStartDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "SellEndDate",
+											"type": "String"
+										},
+										"sink": {
+											"name": "SellEndDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "DiscontinuedDate",
+											"type": "String"
+										},
+										"sink": {
+											"name": "DiscontinuedDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "ThumbNailPhoto",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ThumbNailPhoto",
+											"type": "Byte[]"
+										}
+									},
+									{
+										"source": {
+											"name": "ThumbnailPhotoFileName",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ThumbnailPhotoFileName",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "rowguid",
+											"type": "String"
+										},
+										"sink": {
+											"name": "rowguid",
+											"type": "Guid"
+										}
+									}
+								]
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ProductsCSV",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ProductsStaging",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					},
+					{
+						"name": "Validate Import Rows",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [
+							{
+								"activity": "Import CSV",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "[concat('[', 'SalesLT].[usp_CheckProductStaging]')]"
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureSqlDatabase_wsplusadfdbmgw",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "Send Failure Notification",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "Validate Import Rows",
+								"dependencyConditions": [
+									"Failed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-31.australiasoutheast.logic.azure.com:443/workflows/29c1985b7e324df193e0aa1198f0e1c2/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=PdAFEz025-lFMyP0Y3RV7NidNZzoxQ78Fkq5Dy3p1uw",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"DataFactoryName": "@{pipeline().DataFactory}",
+								"PipelineName": "@{pipeline().Pipeline}",
+								"ErrorMessage": "@{activity('Validate Import Rows').error.message}",
+								"EmailTo": "@pipeline().parameters.EmailTo"
+							}
+						}
+					},
+					{
+						"name": "Send Success Notification",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "Validate Import Rows",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-26.australiasoutheast.logic.azure.com:443/workflows/eb478394458a4ebe9ee73ea135f5be38/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Ju7LECx5Jfrv5QK0dSODYp7fZiuI5f_cLfp8gDYz52k",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"DataFactoryName": "@{pipeline().DataFactory}",
+								"PipelineName": "@{pipeline().Pipeline}",
+								"ErrorMessage": "",
+								"EmailTo": "@pipeline().parameters.EmailTo"
+							}
+						}
+					}
+				],
+				"parameters": {
+					"EmailTo": {
+						"type": "string",
+						"defaultValue": "michael.walshnz@gamail.com"
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ProductsCSV')]",
+				"[concat(variables('factoryId'), '/datasets/ProductsStaging')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase_wsplusadfdbmgw')]"
 			]
 		}
 	]
