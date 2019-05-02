@@ -1546,6 +1546,16 @@
 											"name": "rowguid",
 											"type": "Guid"
 										}
+									},
+									{
+										"source": {
+											"name": "(No column name)",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ModifiedDate",
+											"type": "DateTime"
+										}
 									}
 								]
 							}
