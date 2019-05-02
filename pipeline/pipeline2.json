@@ -223,6 +223,54 @@
 					"referenceName": "AzureSqlDatabase_wsplusadfdbmgw",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "Send Failure Notification",
+				"type": "WebActivity",
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"typeProperties": {
+					"url": "https://prod-31.australiasoutheast.logic.azure.com:443/workflows/29c1985b7e324df193e0aa1198f0e1c2/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=PdAFEz025-lFMyP0Y3RV7NidNZzoxQ78Fkq5Dy3p1uw",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": {
+						"DataFactoryName": "@{pipeline().DataFactory}",
+						"PipelineName": "@{pipeline().Pipeline}",
+						"ErrorMessage": "@{activity('Validate Import Rows').error.message}",
+						"EmailTo": "@pipeline().parameters.EmailTo"
+					}
+				}
+			},
+			{
+				"name": "Send Success Notification",
+				"type": "WebActivity",
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"typeProperties": {
+					"url": "https://prod-26.australiasoutheast.logic.azure.com:443/workflows/eb478394458a4ebe9ee73ea135f5be38/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Ju7LECx5Jfrv5QK0dSODYp7fZiuI5f_cLfp8gDYz52k",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": {
+						"DataFactoryName": "@{pipeline().DataFactory}",
+						"PipelineName": "@{pipeline().Pipeline}",
+						"ErrorMessage": "",
+						"EmailTo": "@pipeline().parameters.EmailTo"
+					}
+				}
 			}
 		]
 	}
