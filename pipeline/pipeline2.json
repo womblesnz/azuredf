@@ -215,6 +215,13 @@
 					"retryIntervalInSeconds": 30,
 					"secureOutput": false,
 					"secureInput": false
+				},
+				"typeProperties": {
+					"storedProcedureName": "[SalesLT].[usp_CheckProductStaging]"
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase_wsplusadfdbmgw",
+					"type": "LinkedServiceReference"
 				}
 			}
 		]
