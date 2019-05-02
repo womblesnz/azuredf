@@ -15,9 +15,17 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage_wsplusbthsvcmgw'"
 		},
+		"AzureSqlDatabase_wsplusadfdbmgw_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase_wsplusadfdbmgw'"
+		},
 		"AzureStorageLinkedService_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureStorageLinkedService'"
+		},
+		"AzureBatch_wsplusbthsvcmgw_accessKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessKey' of 'AzureBatch_wsplusbthsvcmgw'"
 		},
 		"HDInsight_OnDemand_clusterPassword": {
 			"type": "secureString",
@@ -47,6 +55,14 @@
 			"type": "string",
 			"defaultValue": "adfmw"
 		},
+		"AzureBatch_wsplusbthsvcmgw_properties_typeProperties_accountName": {
+			"type": "string",
+			"defaultValue": "wsplusbthsvcmgw"
+		},
+		"AzureBatch_wsplusbthsvcmgw_properties_typeProperties_batchUri": {
+			"type": "string",
+			"defaultValue": "https://wsplusbthsvcmgw.australiasoutheast.batch.azure.com"
+		},
 		"HDInsight_OnDemand_properties_typeProperties_hostSubscriptionId": {
 			"type": "string",
 			"defaultValue": "27dea0bf-804f-40b5-847f-0921ba6a5f0c"
@@ -57,7 +73,7 @@
 		},
 		"HDInsight_OnDemand_properties_typeProperties_servicePrincipalId": {
 			"type": "string",
-			"defaultValue": "b4cd8b32-01e2-4ca4-a541-f08b4335ae6e"
+			"defaultValue": "60e62fd9-51b4-4bdd-a2bb-00dd0e5655c5"
 		},
 		"HDInsight_OnDemand_properties_typeProperties_tenant": {
 			"type": "string",
@@ -110,6 +126,19 @@
 					"tenant": "[parameters('AzureDataLakeStore_Source_properties_typeProperties_tenant')]",
 					"subscriptionId": "[parameters('AzureDataLakeStore_Source_properties_typeProperties_subscriptionId')]",
 					"resourceGroupName": "[parameters('AzureDataLakeStore_Source_properties_typeProperties_resourceGroupName')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabase_wsplusadfdbmgw')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureSqlDatabase_wsplusadfdbmgw_connectionString')]"
 				}
 			},
 			"dependsOn": []
@@ -525,6 +554,142 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/ProductsStaging')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase_wsplusadfdbmgw",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "StagingID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ProductID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Name",
+						"type": "nvarchar"
+					},
+					{
+						"name": "ProductNumber",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Color",
+						"type": "nvarchar"
+					},
+					{
+						"name": "StandardCost",
+						"type": "money",
+						"precision": 19,
+						"scale": 4
+					},
+					{
+						"name": "ListPrice",
+						"type": "money",
+						"precision": 19,
+						"scale": 4
+					},
+					{
+						"name": "Size",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Weight",
+						"type": "decimal",
+						"precision": 8,
+						"scale": 2
+					},
+					{
+						"name": "ProductCategoryID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ProductModelID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "SellStartDate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "SellEndDate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "DiscontinuedDate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "ThumbNailPhoto",
+						"type": "varbinary"
+					},
+					{
+						"name": "ThumbnailPhotoFileName",
+						"type": "nvarchar"
+					},
+					{
+						"name": "rowguid",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "ModifiedDate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"tableName": "[concat('[', 'SalesLT].[ProductStaging]')]"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase_wsplusadfdbmgw')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureBatch_wsplusbthsvcmgw')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBatch",
+				"typeProperties": {
+					"accountName": "[parameters('AzureBatch_wsplusbthsvcmgw_properties_typeProperties_accountName')]",
+					"accessKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureBatch_wsplusbthsvcmgw_accessKey')]"
+					},
+					"batchUri": "[parameters('AzureBatch_wsplusbthsvcmgw_properties_typeProperties_batchUri')]",
+					"poolName": "wsplusbthsvcmgwpool1",
+					"linkedServiceName": {
+						"referenceName": "AzureBlobStorage_wsplusbthsvcmgw",
+						"type": "LinkedServiceReference"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage_wsplusbthsvcmgw')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/HDInsight_OnDemand')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -534,7 +699,7 @@
 				"typeProperties": {
 					"clusterType": "spark",
 					"clusterSize": 4,
-					"timeToLive": "00:05:00",
+					"timeToLive": "00:15:00",
 					"version": "3.6",
 					"hostSubscriptionId": "[parameters('HDInsight_OnDemand_properties_typeProperties_hostSubscriptionId')]",
 					"clusterResourceGroup": "[parameters('HDInsight_OnDemand_properties_typeProperties_clusterResourceGroup')]",
@@ -555,6 +720,12 @@
 						"type": "SecureString",
 						"value": "[parameters('HDInsight_OnDemand_servicePrincipalKey')]"
 					},
+					"additionalLinkedServiceNames": [
+						{
+							"referenceName": "AzureBlobStorage_wsplusbthsvcmgw",
+							"type": "LinkedServiceReference"
+						}
+					],
 					"linkedServiceName": {
 						"referenceName": "AzureBlobStorage_wsplusbthsvcmgw",
 						"type": "LinkedServiceReference"

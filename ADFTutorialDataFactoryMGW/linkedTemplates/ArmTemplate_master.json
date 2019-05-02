@@ -7,6 +7,10 @@
 			"metadata": "Data Factory Name",
 			"defaultValue": "adftutorialdatafactorymgw"
 		},
+		"AzureBatch_wsplusbthsvcmgw_accessKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessKey' of 'AzureBatch_wsplusbthsvcmgw'"
+		},
 		"AzureBlobStorage_Staging_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage_Staging'"
@@ -14,6 +18,10 @@
 		"AzureBlobStorage_wsplusbthsvcmgw_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage_wsplusbthsvcmgw'"
+		},
+		"AzureSqlDatabase_wsplusadfdbmgw_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase_wsplusadfdbmgw'"
 		},
 		"AzureStorageLinkedService_connectionString": {
 			"type": "secureString",
@@ -30,6 +38,14 @@
 		"HDInsight_OnDemand_servicePrincipalKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'servicePrincipalKey' of 'HDInsight_OnDemand'"
+		},
+		"AzureBatch_wsplusbthsvcmgw_properties_typeProperties_accountName": {
+			"type": "string",
+			"defaultValue": "wsplusbthsvcmgw"
+		},
+		"AzureBatch_wsplusbthsvcmgw_properties_typeProperties_batchUri": {
+			"type": "string",
+			"defaultValue": "https://wsplusbthsvcmgw.australiasoutheast.batch.azure.com"
 		},
 		"AzureDataLakeStore_Source_properties_typeProperties_dataLakeStoreUri": {
 			"type": "string",
@@ -57,7 +73,7 @@
 		},
 		"HDInsight_OnDemand_properties_typeProperties_servicePrincipalId": {
 			"type": "string",
-			"defaultValue": "b4cd8b32-01e2-4ca4-a541-f08b4335ae6e"
+			"defaultValue": "60e62fd9-51b4-4bdd-a2bb-00dd0e5655c5"
 		},
 		"HDInsight_OnDemand_properties_typeProperties_tenant": {
 			"type": "string",
@@ -100,8 +116,14 @@
 					"AzureBlobStorage_wsplusbthsvcmgw_connectionString": {
 						"value": "[parameters('AzureBlobStorage_wsplusbthsvcmgw_connectionString')]"
 					},
+					"AzureSqlDatabase_wsplusadfdbmgw_connectionString": {
+						"value": "[parameters('AzureSqlDatabase_wsplusadfdbmgw_connectionString')]"
+					},
 					"AzureStorageLinkedService_connectionString": {
 						"value": "[parameters('AzureStorageLinkedService_connectionString')]"
+					},
+					"AzureBatch_wsplusbthsvcmgw_accessKey": {
+						"value": "[parameters('AzureBatch_wsplusbthsvcmgw_accessKey')]"
 					},
 					"HDInsight_OnDemand_clusterPassword": {
 						"value": "[parameters('HDInsight_OnDemand_clusterPassword')]"
@@ -123,6 +145,12 @@
 					},
 					"AzureDataLakeStore_Source_properties_typeProperties_resourceGroupName": {
 						"value": "[parameters('AzureDataLakeStore_Source_properties_typeProperties_resourceGroupName')]"
+					},
+					"AzureBatch_wsplusbthsvcmgw_properties_typeProperties_accountName": {
+						"value": "[parameters('AzureBatch_wsplusbthsvcmgw_properties_typeProperties_accountName')]"
+					},
+					"AzureBatch_wsplusbthsvcmgw_properties_typeProperties_batchUri": {
+						"value": "[parameters('AzureBatch_wsplusbthsvcmgw_properties_typeProperties_batchUri')]"
 					},
 					"HDInsight_OnDemand_properties_typeProperties_hostSubscriptionId": {
 						"value": "[parameters('HDInsight_OnDemand_properties_typeProperties_hostSubscriptionId')]"

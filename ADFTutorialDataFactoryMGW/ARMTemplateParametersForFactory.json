@@ -5,10 +5,16 @@
 		"factoryName": {
 			"value": "adftutorialdatafactorymgw"
 		},
+		"AzureBatch_wsplusbthsvcmgw_accessKey": {
+			"value": ""
+		},
 		"AzureBlobStorage_Staging_connectionString": {
 			"value": ""
 		},
 		"AzureBlobStorage_wsplusbthsvcmgw_connectionString": {
+			"value": ""
+		},
+		"AzureSqlDatabase_wsplusadfdbmgw_connectionString": {
 			"value": ""
 		},
 		"AzureStorageLinkedService_connectionString": {
@@ -22,6 +28,12 @@
 		},
 		"HDInsight_OnDemand_servicePrincipalKey": {
 			"value": ""
+		},
+		"AzureBatch_wsplusbthsvcmgw_properties_typeProperties_accountName": {
+			"value": "wsplusbthsvcmgw"
+		},
+		"AzureBatch_wsplusbthsvcmgw_properties_typeProperties_batchUri": {
+			"value": "https://wsplusbthsvcmgw.australiasoutheast.batch.azure.com"
 		},
 		"AzureDataLakeStore_Source_properties_typeProperties_dataLakeStoreUri": {
 			"value": "https://adftutorialmgw.azuredatalakestore.net/webhdfs/v1"
@@ -42,7 +54,7 @@
 			"value": "adfmw"
 		},
 		"HDInsight_OnDemand_properties_typeProperties_servicePrincipalId": {
-			"value": "b4cd8b32-01e2-4ca4-a541-f08b4335ae6e"
+			"value": "60e62fd9-51b4-4bdd-a2bb-00dd0e5655c5"
 		},
 		"HDInsight_OnDemand_properties_typeProperties_tenant": {
 			"value": "3b46a97a-a951-4816-aebc-0b6c46f1d4e1"
