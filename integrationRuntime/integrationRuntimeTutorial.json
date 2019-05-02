@@ -1,0 +1,28 @@
+{
+	"name": "integrationRuntimeTutorial",
+	"properties": {
+		"type": "Managed",
+		"description": "Tutorial Integration Runtime",
+		"typeProperties": {
+			"computeProperties": {
+				"location": "Australia East",
+				"nodeSize": "Standard_D8_v3",
+				"numberOfNodes": 2,
+				"maxParallelExecutionsPerNode": 1
+			},
+			"ssisProperties": {
+				"catalogInfo": {
+					"catalogServerEndpoint": "wsplusadfdbmgw.database.windows.net",
+					"catalogAdminUserName": "adminmgw",
+					"catalogAdminPassword": {
+						"type": "SecureString",
+						"value": "**********"
+					},
+					"catalogPricingTier": "S1"
+				},
+				"edition": "Standard",
+				"licenseType": "LicenseIncluded"
+			}
+		}
+	}
+}
