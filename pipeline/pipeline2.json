@@ -310,7 +310,7 @@
 		"parameters": {
 			"EmailTo": {
 				"type": "string",
-				"defaultValue": "michael.walshnz@gamail.com"
+				"defaultValue": "michael.walshnz@gmail.com"
 			}
 		}
 	}
